@@ -18,5 +18,5 @@ roots_Y<-uniroot.all(approxfun(resonances_Y$freq,resonances_Y$psd_xyz-half_power
 
 Damping_Ratio_Y=(roots_Y[2]-roots_Y[1])/(2*peak_freq_Y)
 
-print("Damping ratio calculated for Y axis:")
-print(paste("damping_ratio_y:", Damping_Ratio_Y))
+
+print(trunc(Damping_Ratio_Y*10^4)/10^4)
