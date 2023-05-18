@@ -15,4 +15,4 @@ name=$name"-dr_"$dr"-v"$(date "+%Y%m%d_%H%M")".png";
 
 #cleanup
 mv ~/printer_data/config/RES_DATA/shaper_calibrate_x.png ~/printer_data/config/RES_DATA/$name;
-find '/tmp/' -name "resonances_y_*.csv" -print 2>/dev/null -exec rm {} \;
+find '/tmp/' -name "resonances_x_*.csv" -print 2>/dev/null -exec rm {} \;
