@@ -60,7 +60,7 @@ Run **RESONANCE_TEST_X** or **RESONANCE_TEST_Y** macros and wait for the Console
 <img src="Images/config.png"/>
 
 <br>*The files are placed in ~/printer_data/config/RES_DATA/*<br>
-*The damping ratio is displayed in the Console.*<br><br>
+*The damping ratio is displayed in the Console and added to the filename.*<br><br>
 
 <img src="Images/console.png"/>
 
