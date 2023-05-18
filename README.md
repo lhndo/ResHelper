@@ -34,7 +34,7 @@ https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
 
 ## Usage:
 
-#### 1. Run Resonance Test Macros 
+#### 1. Run the Resonance Test Macros 
 Run **RESONANCE_TEST_X** or **RESONANCE_TEST_Y** macros and wait for the Console output.
 
 #### 2. View the graph images directly in the browser by going to MACHINE (Mainsail) and then opening the RES_DATA folder.
