@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "\nResHelper: Generating data...\n";
+echo -e "\nResHelper: Generating data...\n";
 name="shaper_calibrate_y";
 [ ! -d $HOME"/printer_data/config/RES_DATA/" ] && mkdir ~/printer_data/config/RES_DATA;
 
@@ -9,7 +9,7 @@ name="shaper_calibrate_y";
 #damping ratio
 dr=$(Rscript ~/ResHelper/Y.R);
 dr=${dr#"[1] "};
-echo "Damping ratio for Y calculated:\ndamping_ratio_y: $dr\n ";
+echo -e "Damping ratio for Y calculated:\ndamping_ratio_y: $dr\n ";
 name=$name"-dr_"$dr"-v"$(date "+%Y%m%d_%H%M")".png";
 
 
