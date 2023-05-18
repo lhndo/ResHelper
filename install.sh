@@ -29,7 +29,7 @@ else
 fi
 
 echo -e "\nCleaning old tmp csv files..."
-find '/tmp/' -name "resonances_x_*.csv" -print 2>/dev/null -exec rm {} \;
+find '/tmp/' -name "resonances_*.csv" -print 2>/dev/null -exec rm {} \;
 
 
 echo -e "\nResHelper installation complete! \nPlease add [include reshelper.cfg] to your printer.cfg. Enjoy!\n"
