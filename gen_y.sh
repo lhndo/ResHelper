@@ -7,10 +7,10 @@ name="shaper_calibrate_y";
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o ~/printer_data/config/RES_DATA/shaper_calibrate_y.png;
 
 #damping ratio
-dr=$(Rscript ~/ResHelper/Y.R);
+dr="$(Rscript ~/ResHelper/Y.R)";
 dr=${dr#"[1] "};
 echo "Damping ratio for Y calculated:\ndamping_ratio_y: $dr\n ";
-name=$name"-dr_"$dr"-v"$(date "+%Y%m%d_%H%M")".png";
+name=$name"-dr_$dr-v$(date "+%Y%m%d_%H%M").png";
 
 
 #cleanup
