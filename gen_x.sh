@@ -10,7 +10,7 @@ name="shaper_calibrate_x";
 dr="$(Rscript ~/ResHelper/X.R)";
 dr=${dr#"[1] "};
 echo "Damping ratio for X calculated:\ndamping_ratio_y: $dr\n ";
-name=$name"-dr_$dr-v$(date "+%Y%m%d_%H%M").png";
+name=$name+"-dr_$dr-v$(date "+%Y%m%d_%H%M").png";
 
 
 #cleanup
