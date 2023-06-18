@@ -22,6 +22,11 @@ Throughout the process there is no need to connect to the PI by SSH or SFTP.
 
 #### 3. Install G-Code Shell Command
 
+Download gcode_shell_command.py to /home/pi/klipper/klippy/extras <br>
+https://github.com/th33xitus/kiauh/blob/master/resources/gcode_shell_command.py <br>
+Restart the klipper service
+
+Gcode Shell Command info:
 https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
 
 #### 4. Include the configuration file in your printer.cfg
