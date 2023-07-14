@@ -63,7 +63,7 @@ damping_ratio_x: 0.055
 
 shaper_freq_y: 54.0
 shaper_type_y: zv
-damping_ratio_x: 0.0523
+damping_ratio_y: 0.0523
 </code></pre>
 
 *For more information please consult: https://www.klipper3d.org/Resonance_Compensation.html*
