@@ -19,6 +19,8 @@ Throughout the process there is no need to connect to the PI by SSH or SFTP.
 
 `sudo apt install r-base`<br>
 `sudo Rscript install_rs_lib.R`
+<br>If the library install fails, try installing a Fortran compiler: 
+`sudo apt-get install gfortran`
 
 #### 3. Install G-Code Shell Command
 
