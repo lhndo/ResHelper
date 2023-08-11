@@ -33,7 +33,8 @@ https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
 
 #### 4. Include the configuration file in your printer.cfg
 
-`[include reshelper.cfg]`
+`[include reshelper.cfg]` <br>
+Note: If your host user name is not "pi", then you have to change the paths in reshelper.cfg
 
 #### 5. Restart Klipper
 
