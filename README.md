@@ -79,3 +79,7 @@ damping_ratio_y: 0.0523
 
 *Based on work by **Dmitry**, **churls** and **kmobs***<br>
 https://gist.github.com/kmobs/3a09cc28ec79e62f28d8db2179be7909
+
+## Support
+<br>
+<a href='https://ko-fi.com/LHST' target='_blank'><img height='46' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
