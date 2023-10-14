@@ -23,7 +23,10 @@ Throughout the process there is no need to connect to the PI by SSH or SFTP.
 `sudo apt-get install gfortran`
 
 #### 3. Install G-Code Shell Command
+**KIAUH**  
+Launch ./kiauh, then go to Advance> Extras> G-Code Shell Command
 
+**Manual Method**  
 Download gcode_shell_command.py to /home/pi/klipper/klippy/extras <br>
 https://github.com/th33xitus/kiauh/blob/master/resources/gcode_shell_command.py <br>
 Restart the klipper service
