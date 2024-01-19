@@ -24,7 +24,7 @@ systemctl restart klipper
 cd ~/klipper/klippy/extras/
 wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/dk_bleeding_edge/resonance_tester.py
 cd ../..
-echo "klippy/extras/xz_dockable_probe.py" >> .git/info/exclude
+echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
 systemctl restart klipper
 </code></pre>
 
