@@ -1,3 +1,39 @@
+>[!WARNING]
+>This is an experimental branch that adds the possibility of directly setting the accel_per_hz  value for resonance testing.  
+
+>[!NOTE]
+>This can be done from the RESONANCE TEST macro dropdown or by running the command such as:  
+> **RESONANCE_TEST_Y APHZ=90**  
+> To be able to do so, you will have to patch your resonance_test.py module with the one listed below
+
+
+### Patches
+**Klipper**:
+
+<pre><code>
+cd ~/klipper/klippy/extras/
+wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/resonance_tester.py
+cd ../..
+echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
+systemctl restart klipper
+</code></pre>
+
+**Danger Klipper - Bleeding Edge:**
+
+<pre><code>
+cd ~/klipper/klippy/extras/
+wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/dk_bleeding_edge/resonance_tester.py
+cd ../..
+echo "klippy/extras/xz_dockable_probe.py" >> .git/info/exclude
+systemctl restart klipper
+</code></pre>
+
+<br>
+<br>
+<hr>
+<br>
+<br>
+
 # ResHelper
 A series of scripts designed to streamline Klipper's resonance testing workflow
 
