@@ -1,10 +1,12 @@
 >[!WARNING]
->This is an experimental branch that adds the possibility of directly setting the accel_per_hz  value for resonance testing.  
+>This is an experimental branch that adds the possibility of directly setting the **accel_per_hz value** for resonance testing and enabling **damping_ratio** value generation.  
+
 
 >[!NOTE]
 >This can be done from the RESONANCE TEST macro dropdown or by running the command such as:  
-> **RESONANCE_TEST_Y APHZ=90**  
-> To be able to do so, you will have to patch your resonance_test.py module with the one listed below
+> **RESONANCE_TEST_Y APHZ=90 DR=1**  
+> To be able to do so, you will have to patch your resonance_test.py module with the one listed below.  
+> By default **accel_per_hz** defaults to the configuration value, and **damping_ratio** generation os turned OFF for quick testing.
 
 
 ### Patches
