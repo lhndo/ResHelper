@@ -1,5 +1,5 @@
 >[!WARNING]
->This is an experimental branch that adds the possibility of directly setting the **accel_per_hz value** for resonance testing and enabling **damping_ratio** value generation.  
+>This is an experimental branch that adds the possibility of directly setting the **accel_per_hz value** for resonance testing and optional **damping_ratio** value generation.  
 
 
 >[!NOTE]
