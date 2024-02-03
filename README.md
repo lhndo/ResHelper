@@ -6,7 +6,7 @@
 >This can be done from the RESONANCE TEST macro dropdown or by running the command such as:  
 > **RESONANCE_TEST_Y APHZ=90 DR=1**  
 > To be able to do so, you will have to patch your resonance_test.py module with the one listed below.  
-> By default **accel_per_hz** defaults to the configuration value, and **damping_ratio** generation os turned OFF for quick testing.
+> By default **accel_per_hz** is set to your printer.cfg value, and **damping_ratio** generation is turned OFF for quick testing.
 
 
 ### Patches
