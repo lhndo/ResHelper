@@ -8,15 +8,27 @@
 > To be able to do so, you will have to patch your resonance_test.py module with the one listed below.  
 > By default **accel_per_hz** is set to your printer.cfg value, and **damping_ratio** generation is turned OFF for quick testing.
 
-
+### Switching to this branch from a previous version
+<pre><code>
+cd ResHelper/
+git checkout accel_per_hz
+./install.sh
+</code></pre>
+Override the old reshelper.cfg when asked during the install process, and edit your user path in reshleper.cfg it it's different than "pi"
+  
 ### Patches
+
+To be able to choose switch your accel per hz at runtime, you need to apply one of the patches below. 
+
 **Klipper**:
 
 <pre><code>
 cd ~/klipper/klippy/extras/
+rm ~/klipper/klippy/extras/resonance_tester.py
 wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/resonance_tester.py
 cd ../..
 echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
+git update-index --assume-unchanged klippy/extras/resonance_tester.py
 systemctl restart klipper
 </code></pre>
 
@@ -24,9 +36,11 @@ systemctl restart klipper
 
 <pre><code>
 cd ~/klipper/klippy/extras/
+rm ~/klipper/klippy/extras/resonance_tester.py
 wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/dk_bleeding_edge/resonance_tester.py
 cd ../..
 echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
+git update-index --assume-unchanged klippy/extras/resonance_tester.py
 systemctl restart klipper
 </code></pre>
 
