@@ -65,6 +65,7 @@ Throughout the process there is no need to connect to the PI by SSH or SFTP.
 
 `git clone https://github.com/lhndo/ResHelper.git`<br>
 `cd ResHelper`<br>
+`git checkout accel_per_hz
 `./install.sh`<br>
 
 #### 2. Install Rscript
