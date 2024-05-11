@@ -7,6 +7,11 @@ It auto generates the resonance graph, and outputs the graph images into the con
 The Damping Ratio is automatically computed and displayed in the console and appended to the graph image filename.<br>
 Throughout the process there is no need to connect to the PI by SSH or SFTP.
 
+### Accel Per HZ
+
+Note: An experimental [**Accel Per HZ branch**](https://github.com/lhndo/ResHelper/tree/accel_per_hz) is available, which adds the capability of directly setting the "accel_per_hz" value for resonance testing and optionally generates a "damping_ratio" value.
+
+
 ## Installation:
 
 #### 1. Download and install ResHelper Scripts 
