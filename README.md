@@ -8,7 +8,81 @@
 > To be able to do so, you will have to patch your resonance_test.py module with the one listed below.  
 > By default **accel_per_hz** is set to your printer.cfg value, and **damping_ratio** generation is turned OFF for quick testing.
 
-### Switching to this branch from a previous version
+# ResHelper
+A series of scripts designed to streamline Klipper's resonance testing workflow
+
+### What does this do?
+
+It auto generates the resonance graph, and outputs the graph images into the config folder. These can be viewed directly in Mainsail/Fluid.<br>
+The Damping Ratio is automatically computed and displayed in the console and appended to the graph image filename.<br>
+Throughout the process there is no need to connect to the PI by SSH or SFTP.
+
+## Installation:
+
+#### 1. Download and install ResHelper Scripts 
+
+`git clone https://github.com/lhndo/ResHelper.git`<br>
+`cd ResHelper`<br>
+`git checkout accel_per_hz`<br>
+`./install.sh`<br>
+
+#### 2. Install Rscript
+
+`sudo apt install r-base`<br>
+`sudo Rscript install_rs_lib.R`
+
+<br> Note: *If the library install fails, try installing a Fortran compiler: `sudo apt-get install gfortran` then rerun `sudo Rscript install_rs_lib.R`*   
+
+#### 3. Install G-Code Shell Command
+**KIAUH**  
+Launch ./kiauh, then go to Advance> Extras> G-Code Shell Command
+
+**Manual Method**  
+Download gcode_shell_command.py to /home/pi/klipper/klippy/extras <br>
+https://github.com/th33xitus/kiauh/blob/master/resources/gcode_shell_command.py <br>
+Restart the klipper service
+
+Gcode Shell Command info:
+https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
+
+#### 4. Patch Klipper
+
+To be able to choose switch your accel per hz at runtime, you need to apply one of the patches below. 
+
+**Klipper**:
+
+<pre><code>
+cd ~/klipper/klippy/extras/
+rm ~/klipper/klippy/extras/resonance_tester.py
+wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/resonance_tester.py
+cd ../..
+echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
+git update-index --assume-unchanged klippy/extras/resonance_tester.py
+systemctl restart klipper
+</code></pre>
+
+**Danger Klipper - Bleeding Edge:**
+
+<pre><code>
+cd ~/klipper/klippy/extras/
+rm ~/klipper/klippy/extras/resonance_tester.py
+wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/dk_bleeding_edge/resonance_tester.py
+cd ../..
+echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
+git update-index --assume-unchanged klippy/extras/resonance_tester.py
+systemctl restart klipper
+</code></pre>
+
+#### 5. Include the configuration file in your printer.cfg
+
+`[include reshelper.cfg]` <br>
+Note: If your host user name is not "pi", then you have to change the paths in reshelper.cfg
+
+#### 6. Restart Klipper
+
+<br><br>
+
+## Switching to this branch from a previous version
 <pre><code>
 cd ResHelper/
 git checkout accel_per_hz
@@ -49,52 +123,6 @@ systemctl restart klipper
 <hr>
 <br>
 <br>
-
-# ResHelper
-A series of scripts designed to streamline Klipper's resonance testing workflow
-
-### What does this do?
-
-It auto generates the resonance graph, and outputs the graph images into the config folder. These can be viewed directly in Mainsail/Fluid.<br>
-The Damping Ratio is automatically computed and displayed in the console and appended to the graph image filename.<br>
-Throughout the process there is no need to connect to the PI by SSH or SFTP.
-
-## Installation:
-
-#### 1. Download and install ResHelper Scripts 
-
-`git clone https://github.com/lhndo/ResHelper.git`<br>
-`cd ResHelper`<br>
-`git checkout accel_per_hz`<br>
-`./install.sh`<br>
-
-#### 2. Install Rscript
-
-`sudo apt install r-base`<br>
-`sudo Rscript install_rs_lib.R`
-
-<br> Note: *If the library install fails, try installing a Fortran compiler: `sudo apt-get install gfortran` then rerun `sudo Rscript install_rs_lib.R`*   
-
-#### 3. Install G-Code Shell Command
-**KIAUH**  
-Launch ./kiauh, then go to Advance> Extras> G-Code Shell Command
-
-**Manual Method**  
-Download gcode_shell_command.py to /home/pi/klipper/klippy/extras <br>
-https://github.com/th33xitus/kiauh/blob/master/resources/gcode_shell_command.py <br>
-Restart the klipper service
-
-Gcode Shell Command info:
-https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
-
-#### 4. Include the configuration file in your printer.cfg
-
-`[include reshelper.cfg]` <br>
-Note: If your host user name is not "pi", then you have to change the paths in reshelper.cfg
-
-#### 5. Restart Klipper
-
-<br><br>
 
 ## Usage:
 
