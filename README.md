@@ -82,7 +82,7 @@ https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
 
 #### 4. Patch Klipper (Not required for Danger Klipper)
 
-To be able to choose switch your accel per hz at runtime, you need to apply the patch below. 
+To be able to choose switch your accel per hz at runtime, you need to apply the patch below.    
 :exclamation: Danger Klipper has the following patch built-in
 
 **Klipper**:
@@ -126,7 +126,7 @@ Override the old reshelper.cfg when asked during the install process, and edit y
 
 #### Patch Klipper (Not required for Danger Klipper)
 
-To be able to choose switch your accel per hz at runtime, you need to apply the patch below. 
+To be able to choose switch your accel per hz at runtime, you need to apply the patch below.   
 :exclamation: Danger Klipper has the following patch built-in and does not require installation. 
 
 
