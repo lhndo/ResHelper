@@ -150,12 +150,12 @@ class ResonanceTester:
                 for chip_axis, chip_name in self.accel_chip_names]
 
     def _run_test(self, gcmd, axes, helper, raw_name_suffix=None,
-                  accel_chips=None, test_point=None, test_aphz=None):
+                  accel_chips=None, test_point=None, test_accel_per_hz=None):
         toolhead = self.printer.lookup_object('toolhead')
         calibration_data = {axis: None for axis in axes}
 
-        if test_aphz is not None:
-          self.test.accel_per_hz=test_aphz
+        if test_accel_per_hz is not None:
+          self.test.accel_per_hz=test_accel_per_hz
 
         self.test.prepare_test(gcmd)
 
@@ -230,11 +230,11 @@ class ResonanceTester:
         axis = _parse_axis(gcmd, gcmd.get("AXIS").lower())
         chips_str = gcmd.get("CHIPS", None)
         test_point = gcmd.get("POINT", None)
-        test_aphz = gcmd.get("APHZ", None)
+        test_accel_per_hz = gcmd.get("ACCEL_PER_HZ", None)
         
-        if test_aphz:
+        if test_accel_per_hz:
             try:
-                test_aphz = float(test_aphz)
+                test_accel_per_hz = float(test_accel_per_hz)
             except ValueError:
                 raise gcmd.error("Accel Per Hz value, needs to be an integer larger than 0")
             
@@ -273,7 +273,7 @@ class ResonanceTester:
         data = self._run_test(
                 gcmd, [axis], helper,
                 raw_name_suffix=name_suffix if raw_output else None,
-                accel_chips=accel_chips, test_point=test_point, test_aphz=test_aphz)[axis]
+                accel_chips=accel_chips, test_point=test_point, test_accel_per_hz=test_accel_per_hz)[axis]
         if csv_output:
             csv_name = self.save_calibration_data(
                     'resonances', name_suffix, helper, axis, data,
