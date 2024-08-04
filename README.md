@@ -63,7 +63,7 @@ sudo Rscript install_rs_lib.R
 <br>
 
 #### 3. Install G-Code Shell Command
-
+_* If you haven't done so previously_
 
 ```
 cd ~/klipper/klippy/extras/
