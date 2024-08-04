@@ -61,10 +61,7 @@ sudo Rscript install_rs_lib.R
 <br>
 
 #### 3. Install G-Code Shell Command
-**KIAUH:**
-Launch ./kiauh, then go to Advance> Extras> G-Code Shell Command
 
-**Manual Method:**  
 
 ```
 cd ~/klipper/klippy/extras/
