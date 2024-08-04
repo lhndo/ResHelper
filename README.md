@@ -30,13 +30,13 @@ sudo apt install r-base
 sudo Rscript install_rs_lib.R
 ```
 
-<br> Note: *If the library install fails, try installing a Fortran compiler:*
-```
-sudo apt-get install gfortran
-sudo Rscript install_rs_lib.R
-```   
+<br> Note: *If the library install fails, try installing a Fortran compiler: `sudo apt-get install gfortran` then re-run: `sudo Rscript install_rs_lib.R`*   
+
+<br>
 
 #### 3. Install G-Code Shell Command
+
+_* If you haven't done so previously_
 
 
 ```
