@@ -11,28 +11,37 @@ Throughout the process there is no need to connect to the PI by SSH or SFTP.
 
 #### 1. Download and install ResHelper Scripts 
 
-`git clone https://github.com/lhndo/ResHelper.git`<br>
-`cd ResHelper`<br>
-`./install.sh`<br>
+```
+cd ~
+git clone https://github.com/lhndo/ResHelper.git
+cd ResHelper
+./install.sh
+```
 
 #### 2. Install Rscript
 
-`sudo apt install r-base`<br>
-`sudo Rscript install_rs_lib.R`
+```
+sudo apt install r-base
+sudo Rscript install_rs_lib.R
+```
 
-<br> Note: *If the library install fails, try installing a Fortran compiler: `sudo apt-get install gfortran` then rerun `sudo Rscript install_rs_lib.R`*   
+<br> Note: *If the library install fails, try installing a Fortran compiler:*
+```
+sudo apt-get install gfortran
+sudo Rscript install_rs_lib.R
+```   
 
 #### 3. Install G-Code Shell Command
-**KIAUH**  
-Launch ./kiauh, then go to Advance> Extras> G-Code Shell Command
 
-**Manual Method**  
-Download gcode_shell_command.py to /home/pi/klipper/klippy/extras <br>
-https://github.com/th33xitus/kiauh/blob/master/resources/gcode_shell_command.py <br>
-Restart the klipper service
 
-Gcode Shell Command info:
-https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
+```
+cd ~/klipper/klippy/extras/
+wget https://raw.githubusercontent.com/dw-0/kiauh/master/resources/gcode_shell_command.py
+cd ../..
+echo "klippy/extras/gcode_shell_command.py" >> .git/info/exclude
+git update-index --assume-unchanged klippy/extras/gcode_shell_command.py
+systemctl restart klipper
+```
 
 #### 4. Include the configuration file in your printer.cfg
 
