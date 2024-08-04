@@ -39,7 +39,9 @@ A series of scripts designed to streamline Klipper's resonance testing workflow
 #### 1. Download and install ResHelper Scripts 
 
 
-```git clone https://github.com/lhndo/ResHelper.git
+```
+cd ~
+git clone https://github.com/lhndo/ResHelper.git
 cd ResHelper
 git checkout accel_per_hz
 ./install.sh
@@ -85,14 +87,15 @@ To be able to choose switch your accel per hz at runtime, you need to apply the 
 
 **Klipper**:
 
-<pre><code>cd ~/klipper/klippy/extras/
+```
+cd ~/klipper/klippy/extras/
 rm ~/klipper/klippy/extras/resonance_tester.py
 wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/resonance_tester.py
 cd ../..
 echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
 git update-index --assume-unchanged klippy/extras/resonance_tester.py
 systemctl restart klipper
-</code></pre>
+```
 
 
 
