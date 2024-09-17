@@ -1,3 +1,16 @@
+Install:
+```
+cd ~
+rm -rf ResHelper
+git clone https://github.com/lhndo/ResHelper.git
+cd ResHelper
+git checkout newv2
+./install.sh
+```
+
+# IGNORE BELOW 
+
+
 **Contents:**
 - [ResHelper](#reshelper)
     - [What does this do?](#what-does-this-do)
