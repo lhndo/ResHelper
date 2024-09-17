@@ -36,22 +36,24 @@ fi
 #### Check for updates
 
 if [ "$(git rev-parse --show-toplevel 2>/dev/null)" = "$(pwd)" ]; then
+	echo -e "Checking for updates...\n"
 	GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 	git fetch
     if ! git diff --quiet HEAD origin/${GIT_BRANCH}; then  # Change 'main' if needed
+    	echo ""
         read -p "An update is available. Do you want to update to the latest version? (y/n): " choice
         case "$choice" in
             y|Y )
-                echo "Updating to the latest version..."
+                echo -e "Updating to the latest version..\n"
                 git reset --hard origin/${GIT_BRANCH}  # Change 'main' if needed
-                echo "Update complete. Please restart the installation process."
+                echo -e "\nUpdate complete. Please restart the installation process.\n"
                 exit 0
                 ;;
             n|N )
                 echo "Continuing without update."
                 ;;
             * )
-                echo "Invalid choice. Please enter 'y' or 'n'."
+                echo -e "\nInvalid choice. Please enter 'y' or 'n'.\n"
                 exit 1
                 ;;
         esac
