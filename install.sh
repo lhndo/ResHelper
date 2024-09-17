@@ -254,9 +254,9 @@ sed -i "s|<rh_path>|${RH_PATH}/gen.sh|g" reshelper.cfg
 echo -e "\nCopying reshelper.cfg to $CONFIG_PATH"
 if [ -f "${CONFIG_PATH}/reshelper.cfg" ]; then
 	echo -e "Existing reshelper.cfg found. Renaming it to reshelper.cfg.old"
-	# mv "${CONFIG_PATH}/reshelper.cfg" "${CONFIG_PATH}/reshelper.cfg.old"
+	mv "${CONFIG_PATH}/reshelper.cfg" "${CONFIG_PATH}/reshelper.cfg.old"
 fi	
-# cp reshelper.cfg "${CONFIG_PATH}"
+cp reshelper.cfg "${CONFIG_PATH}"
 echo -e "Done!\n"
 
 
