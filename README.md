@@ -19,7 +19,7 @@ A series of scripts designed to streamline Klipper's resonance testing workflow
 
 * Auto generates the resonance graph, and outputs the graph images into the config folder. These can be viewed directly in Mainsail/Fluid.
 * The Damping Ratio is automatically computed and displayed in the console and appended to the graph image filename.  
-* Throughout the process there is no need to connect to the PI by SSH or SFTP.
+* Throughout the process there is no need to connect to the PI by SSH or SFTP.  
 
 <br>
 
