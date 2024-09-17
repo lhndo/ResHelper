@@ -60,7 +60,21 @@ fi
 ######## Path setup
 echo -e "Detecting Paths...\n"
 
-. ./defaults  # Importing defaults
+
+
+if [ -f ./defaults.conf ]; then
+	echo -e "default.conf file found! Using specified defaults.\n"
+	. ./defaults.conf  
+else 
+	I_USER=""
+	I_HOME=""
+	RH_PATH=""
+	CONFIG_PATH=""
+	KLIPPER_PATH=""
+	KLIPPER_VER=""
+	TMP_PATH=""
+fi
+
 
 if [ -z "$I_USER" ]; then
 	I_USER="$USER"
