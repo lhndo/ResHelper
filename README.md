@@ -13,18 +13,6 @@
 A series of scripts designed to streamline Klipper's resonance testing workflow
 
 
-:bulb: *This is an experimental branch that adds the possibility of directly setting the **accel_per_hz value** for resonance testing and optional **damping_ratio** value generation.*
-
-<br>
-
->[!NOTE]
->This can be done from the RESONANCE TEST macro dropdown or by running the command such as:  
-> **RESONANCE_TEST_Y ACCEEL_PER_HZ=90 DR=1**  
-> To be able to do so, you will have to patch your resonance_test.py module with the one listed below.  
-> By default **accel_per_hz** is set to your printer.cfg value, and **damping_ratio (DR)** generation is turned OFF for quick testing.
->
- <br>
-
 ### What does this do?
 
 * Auto generates the resonance graph, and outputs the graph images into the config folder. These can be viewed directly in Mainsail/Fluid.
@@ -155,6 +143,7 @@ systemctl restart klipper
 
 #### 1. Run the Resonance Test Macros 
 Run **RESONANCE_TEST_X** or **RESONANCE_TEST_Y** macros and wait for the Console output.
+> **RESONANCE_TEST_Y ACCEEL_PER_HZ=90 DR=1**  
 
 #### 2. View the graph images directly in the browser by going to MACHINE (Mainsail) and then opening the RES_DATA folder.
 *The files are placed in ~/printer_data/config/RES_DATA/*<br>
