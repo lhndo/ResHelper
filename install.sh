@@ -146,7 +146,7 @@ echo -e "\nPaths detected successfully!"
 
 
 ######### Saving Paths
-echo -e "\nSaving Paths to paths.conf file..."
+echo -e "\nSaving paths to paths.conf file..."
 rm -f paths.conf
 
 cat << EOF > paths.conf
@@ -161,13 +161,13 @@ KLIPPER_VER="${KLIPPER_VER}"
 TMP_PATH="${TMP_PATH}"
 EOF
 
-echo -e "Paths saved into paths.conf!\n"
+echo -e "Paths saved!\n"
 
 
 #### Check Prerequisites
 
 ## Check Klipper
-echo -e "\nChecking Klipper modules..."
+echo -e "Checking Klipper modules..."
 
 PK_PATH=$(find ${I_HOME} -type d -path '*/klippy-env/bin' | head -n 1); 
 if [ ! -d "$PK_PATH" ]; then
@@ -206,7 +206,8 @@ echo -e "\nDetermining required Klipper patches...\n"
 if [ "$KLIPPER_VER" = "DK" ]; then
     echo "Danger Klipper Master detected. No patches required! Skipping.."
 elif [ "$KLIPPER_VER" = "DK_BE" ]; then 
-    echo "Preparing Classic Mode patch for Danger Klipper with Smooth Shapers..."
+    echo -e "Danger Klipper with Smooth Shapers detected!"
+    echo -e "Preparing classic mode patch.."
 	cp ./patches/dk_be/shaper_calibrate_classic.py ${KLIPPER_PATH}/klippy/plugins/
 	cp ./patches/dk_be/calibrate_shaper_classic.py ${KLIPPER_PATH}/scripts/
 	echo "Added shaper_calibrate_classic.py to klipper/klippy/plugins/"
@@ -214,7 +215,7 @@ elif [ "$KLIPPER_VER" = "DK_BE" ]; then
 	echo "Patching Done!"
     
 elif [ "$KLIPPER_VER" = "MAIN" ]; then
-		echo -e "Setting up patch for mainline Klipper..."
+		echo -e "Klipper mainline detected. Setting up patch..."
 	    echo -e "Note: For ResHelper to work resonance_tester.py will need to be patched"
 	    echo -e "To restore the previous file run: git restore --source=HEAD -- /klippy/extras/resonance_tester.py" 
 
@@ -227,7 +228,7 @@ elif [ "$KLIPPER_VER" = "MAIN" ]; then
 		if [ -f "${KLIPPER_PATH}/klippy/extras/gcode_shell_command.py" ]; then
 			 echo "GCode Shell Command found. Skipping..."
 		else
-			 echo -e "\nInstalling gcode_shell_command...\n"
+			 echo -e "\nInstalling gcode_shell_command module...\n"
 			 cd ${KLIPPER_PATH}/klippy/extras
 		  	 wget https://raw.githubusercontent.com/DangerKlippers/danger-klipper/refs/heads/master/klippy/extras/gcode_shell_command.py
 			 cd ${KLIPPER_PATH}
@@ -244,7 +245,7 @@ fi
 
 #### Setting up reshelper.cfg
 echo -e "\nSetting up reshelper.cfg..."
-echo -e "Path set to: ${RH_PATH}/gen.sh \n"
+echo -e "Path set to: ${RH_PATH}/gen.sh"
 
 cd $RH_PATH
 rm -f reshelper.cfg
@@ -260,16 +261,110 @@ cp reshelper.cfg "${CONFIG_PATH}"
 echo -e "Done!\n"
 
 
-#### Finishing	
-echo -e "Restarting klipper\n"
-systemctl restart klipper
-echo -e "Installation Finished!\n"
-echo -e "Remember to add [include reshelper.cfg] to your printer.cfg!"
+#### Check includes
 
-if [ "$KLIPPER_VER" != "MAIN" ];then 
-	echo -e "\nFor Danger Klipper also add the following:"
-	echo -e "[danger_options]"
-	echo -e "allow_plugin_override: True\n"
+echo -e "Checking printer.cfg for required includes...\n"
+MANUAL_INCLUDE="false"
+
+if [ -f "${CONFIG_PATH}/printer.cfg" ]; then 
+	if grep -q "\[include reshelper.cfg\]" ${CONFIG_PATH}/printer.cfg; then
+		    echo "\"[include reshelper.cfg]\" detected!"
+		    HAS_RH="true"
+	else
+		    echo "\"[include reshelper.cfg]\" missing"
+		    HAS_RH="false"
+	fi	
+	if grep -qi "allow_plugin_override:\s*true" ${CONFIG_PATH}/printer.cfg; then 
+		 HAS_PG="true"
+	     echo "\"allow_plugin_override: True\", detected!"
+	else   
+		if [ "$KLIPPER_VER" = "DK_BE" ];then
+		    echo "\"allow_plugin_override: True\", missing"
+  		 	HAS_PG="false"
+	 	else
+	 		HAS_PG="true"
+ 		fi
+	fi
+else
+	echo "printer.cfg not found at: ${CONFIG_PATH}"
+	echo "Skipping automatic includes..."
+	MANUAL_INCLUDE="true"
+fi
+
+### Asking for automatic includes
+
+if [ "$MANUAL_INCLUDE" = "false" ] && { [ "$HAS_RH" = "false" ] || [ "$HAS_PG" = "false" ]; }; then
+	echo ""
+	read -p "Do you want to automatically set up the printer.cfg includes for you? (y/n): " response
+	echo ""
+	if [ "$response" == "y" ] || [ "$response" == "Y" ]; then
+	    MANUAL_INCLUDE="false"
+	    echo "Automatic setup will be performed."
+	else
+	    MANUAL_INCLUDE="true"
+	    echo "You chose manual setup."
+	fi
+fi
+
+
+### Preparing automatic includes
+
+if [ "$MANUAL_INCLUDE" = "false" ]; then 
+	CFG_INCLUDE=""
+	if [ "$HAS_RH" = "false" ]; then
+		CFG_INCLUDE+="[include reshelper.cfg]\n"
+	fi
+
+	if [ "$HAS_PG" = "false" ]; then
+		CFG_INCLUDE+="\n[danger_options]\n"
+		CFG_INCLUDE+="allow_plugin_override: True\n"
+	fi
+	
+	if [ ! -z "$CFG_INCLUDE"  ]; then
+		CFG_INCLUDE+="\n[mcu]"
+	else
+		echo "WARNING: Issuse detected the include logic. Skpping automatic include ... "
+		MANUAL_INCLUDE="true"
+	fi
+	# echo -e "\nDEBUG: Replace String: \n${CFG_INCLUDE}\n "
+fi
+
+
+### Performing automatic includes
+
+if [ "$MANUAL_INCLUDE" = "false" ]; then
+	if grep -q "\[mcu\]" ${CONFIG_PATH}/printer.cfg; then
+		if command -v awk >/dev/null 2>&1; then
+			echo -e "\nBacking up printer.cfg..."
+			cp "${CONFIG_PATH}/printer.cfg" "${CONFIG_PATH}/printer.cfg.bak" && 
+			awk -v mcu="$CFG_INCLUDE" '
+			  /\[mcu\]/ {print mcu; next}
+			  {print}
+			' "${CONFIG_PATH}/printer.cfg" > "${CONFIG_PATH}/printer.cfg.tmp" && 
+			mv "${CONFIG_PATH}/printer.cfg.tmp" "${CONFIG_PATH}/printer.cfg" &&
+			echo "Added required includes into printer.cfg!" 
+		else
+			echo -e "WARNING: \"awk\" command was not found on this machine. Skipping procedure.."
+		fi
+	else
+		echo "WARNING: Reference string [mcu] was not found in printer.cfg. Skipping procedure.."
+	fi
+fi
+
+
+#### Finishing	
+echo -e "\nRestarting klipper"
+systemctl restart klipper
+echo -e "\nInstallation Finished!\n"
+
+if [ "$MANUAL_INCLUDE" = "true" ]; then
+	echo -e "[include reshelper.cfg] needs to be added to your printer.cfg!"
+
+	if [ "$KLIPPER_VER" = "DK_BE" ];then 
+		echo -e "For Danger Klipper also add the following:\n"
+		echo -e "[danger_options]"
+		echo -e "allow_plugin_override: True\n"
+	fi
 fi
 
 echo -e "Wow, this actually worked :O Enjoy!\n"
