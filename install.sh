@@ -210,6 +210,11 @@ elif [ "$KLIPPER_VER" = "DK_BE" ]; then
     echo -e "Preparing classic mode patch.."
 	cp ./patches/dk_be/shaper_calibrate_classic.py ${KLIPPER_PATH}/klippy/plugins/
 	cp ./patches/dk_be/calibrate_shaper_classic.py ${KLIPPER_PATH}/scripts/
+    cd $KLIPPER_PATH
+    echo "klippy/plugins/shaper_calibrate_classic.py" >> .git/info/exclude
+    echo "scripts/calibrate_shaper_classic.py" >> .git/info/exclude
+    git update-index --assume-unchanged klippy/plugins/shaper_calibrate_classic.py > /dev/null 2>&1
+    git update-index --assume-unchanged scripts/calibrate_shaper_classic.py > /dev/null 2>&1
 	echo "Added shaper_calibrate_classic.py to klipper/klippy/plugins/"
 	echo "Added calibrate_shaper_classic.py to klipper/scripts"
 	echo "Patching Done!"
