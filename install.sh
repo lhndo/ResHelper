@@ -325,7 +325,7 @@ if [ "$MANUAL_INCLUDE" = "false" ]; then
 	if [ ! -z "$CFG_INCLUDE"  ]; then
 		CFG_INCLUDE+="\n[mcu]"
 	else
-		echo "WARNING: Issuse detected the include logic. Skpping automatic include ... "
+		echo "WARNING: Issuse detected in the include logic. Skpping automatic include ... "
 		MANUAL_INCLUDE="true"
 	fi
 	# echo -e "\nDEBUG: Replace String: \n${CFG_INCLUDE}\n "
