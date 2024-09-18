@@ -304,6 +304,8 @@ if [ "$MANUAL_INCLUDE" = "false" ] && { [ "$HAS_RH" = "false" ] || [ "$HAS_PG" =
 	    MANUAL_INCLUDE="true"
 	    echo "You chose manual setup."
 	fi
+else
+	MANUAL_INCLUDE="true"  # safety condition in case something went wrong 
 fi
 
 
@@ -345,9 +347,11 @@ if [ "$MANUAL_INCLUDE" = "false" ]; then
 			echo "Added required includes into printer.cfg!" 
 		else
 			echo -e "WARNING: \"awk\" command was not found on this machine. Skipping procedure.."
+			MANUAL_INCLUDE="true"
 		fi
 	else
 		echo "WARNING: Reference string [mcu] was not found in printer.cfg. Skipping procedure.."
+		MANUAL_INCLUDE="true"		
 	fi
 fi
 
@@ -357,7 +361,7 @@ echo -e "\nRestarting klipper"
 systemctl restart klipper
 echo -e "\nInstallation Finished!\n"
 
-if [ "$MANUAL_INCLUDE" = "true" ]; then
+if [ "$MANUAL_INCLUDE" = "true" ] && { [ "$HAS_RH" = "false" ] || [ "$HAS_PG" = "false" ]; }; then
 	echo -e "[include reshelper.cfg] needs to be added to your printer.cfg!"
 
 	if [ "$KLIPPER_VER" = "DK_BE" ];then 
