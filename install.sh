@@ -18,6 +18,20 @@ check_path() {
 }
 
 
+find_shortest_dir() {
+    local search_path="$1"
+    local search_key="$2"
+    local shortest_dir
+
+    shortest_dir=$(find "$search_path" -type f -path "$search_key" 2>/dev/null | awk '{
+        if (length($0) < len || len == 0) {
+            len = length($0);
+            min = $0; 
+        }
+    } END { if (min) print min; }' | xargs -I {} dirname {})
+    echo "$shortest_dir"  # Output the result
+}
+
 #### MAIN
 
 
@@ -98,13 +112,13 @@ check_path "$RH_PATH"
 echo "ResHelper Path: ${RH_PATH}"
 
 if [ -z "$KLIPPER_PATH" ]; then
-	KLIPPER_PATH=$(find ${I_HOME} -type d -path '*/klipper' | head -n 1); 
+	KLIPPER_PATH=$(find_shortest_dir "$I_HOME" '*/klipper/klippy/toolhead.py')
+	KLIPPER_PATH="${KLIPPER_PATH%/*}"
 	if [ ! -d "$KLIPPER_PATH" ]; then
-	    echo "Error: No valid printer_data/config  path found."
+	    echo "Error: No valid /klipper path found in the home folder."
 	    exit 1
 	fi
 fi
-check_path "$KLIPPER_PATH"
 echo "Klipper Path: ${KLIPPER_PATH}"
 
 if [ -z "$KLIPPER_VER" ]; then
@@ -127,13 +141,12 @@ echo "Klipper Version: ${KLIPPER_VER}"
 
 
 if [ -z "$CONFIG_PATH" ]; then
-	CONFIG_PATH=$(find ${I_HOME} -type d -path '*/printer_data/config' | head -n 1); 
+	CONFIG_PATH=$(find_shortest_dir "$I_HOME" '*/config/printer.cfg')
 	if [ ! -d "$CONFIG_PATH" ]; then
 	    echo "Error: No valid printer_data/config  path found."
 	    exit 1
 	fi
 fi
-check_path "$CONFIG_PATH"
 echo "Klipper Config Path: ${CONFIG_PATH}"
 
 if [ -z "$TMP_PATH" ]; then
