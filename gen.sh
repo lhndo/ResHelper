@@ -94,7 +94,7 @@ fi
 name="$name-dr_${dr:-NA}-v$(date "+%Y%m%d_%H%M").png"
 mv "$RES_DATA_PATH"/shaper_calibrate_"$1".png "$RES_DATA_PATH/$name"
 
-rm "${TMP_PATH}/rh-prev-run/*.csv" 2>/dev/null
+rm "${TMP_PATH}"/rh-prev-run/*.csv 2>/dev/null
 mkdir -p ${TMP_PATH}/rh-prev-run
 
 cp "$TMP_PATH"/resonances_*.csv "${TMP_PATH}/rh-prev-run/" && rm "$TMP_PATH"/resonances_*.csv
