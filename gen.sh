@@ -11,7 +11,16 @@ check_path() {
     fi
 }
 
-. ./paths.conf
+
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+if [ -f ${SCRIPT_DIR}/paths.conf ]; then
+	. ${SCRIPT_DIR}/paths.conf
+else
+   echo "ERROR: ${SCRIPT_DIR}/paths.conf not found. Exiting.. "
+   exit 1
+fi
+
+
 check_path "$I_HOME"
 check_path "$RH_PATH"
 check_path "$CONFIG_PATH"
@@ -25,7 +34,7 @@ echo "\nResHelper: Generating Data...\n"
 name="shaper_calibrate_$1"
 [ ! -d "$RES_DATA_PATH" ] && mkdir -p "$RES_DATA_PATH"
 
-if [ "$KLIPPER_VER" == "MAIN" ] || [ "$KLIPPER_VER" == "DK" ]; then
+if [ "$KLIPPER_VER" = "MAIN" ] || [ "$KLIPPER_VER" = "DK" ]; then
 	if [ "$3" -eq 1 ]; then
     	echo "Skipping Classic Mode. Rrequired only for DK BE variants.\n"
 	fi

@@ -302,7 +302,7 @@ if [ "$MANUAL_INCLUDE" = "false" ] && { [ "$HAS_RH" = "false" ] || [ "$HAS_PG" =
 	echo ""
 	read -p "Do you want to automatically set up the printer.cfg includes for you? (y/n): " response
 	echo ""
-	if [ "$response" == "y" ] || [ "$response" == "Y" ]; then
+	if [ "$response" = "y" ] || [ "$response" = "Y" ]; then
 	    MANUAL_INCLUDE="false"
 	    echo "Automatic setup will be performed."
 	else
