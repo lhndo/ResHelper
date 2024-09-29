@@ -212,6 +212,21 @@ else
     echo -e '"sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev"\n'
 fi
 
+## Check Numpy
+echo -e "\nChecking Matplotlib module..."
+
+if ${PK_PATH}/python -c 'import matplotlib' 2>/dev/null; then
+    echo "Matplotlib is installed!"
+else
+    echo -e "\nMatplotlib is not installed."
+    echo -e "Installing Matplotlib module...\n"
+    ${PK_PATH}/pip install -v matplotlib
+    echo -e "\nDone: Matplotlib Installed!\n"
+    echo -e "\nNOTE: If you encouter Matplotlib issues, make sure that you are running a Klipper Python 3.x version"
+    echo -e "If the issue is still not resolved, you can also try installing the following modules:"
+    echo -e '"sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev"\n'
+fi
+
 
 #### Patching klipper 
 echo -e "\nDetermining required Klipper patches...\n"
