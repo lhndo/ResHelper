@@ -81,11 +81,11 @@ if [ "$2" -eq 1 ]; then
 	DR_RESULT=$($PYTHON "${RH_PATH}/dr_solver.py" "${TMP_PATH}/resonances_${1}_*.csv")
 
 	# Validating results
-	if (( $(echo "$DR_RESULT > 0.001" | bc -l) )) && (( $(echo "$DR_RESULT < 2.0" | bc -l) )); then
+	if [ "$(echo "$DR_RESULT > 0.001" | bc -l)" -eq 1 ] && [ "$(echo "$DR_RESULT < 2.0" | bc -l)" -eq 1 ]; then
 	    dr=$DR_RESULT
-	    echo -e "ResHelper : Damping ratio calculated:\ndamping_ratio: $dr\n"
+	    echo "ResHelper : Damping ratio calculated:\ndamping_ratio: $dr\n"
 	else
-	    echo -e "ERROR: The DR result is out of expected range: $DR_RESULT \n"
+	    echo "WARNING: The DR result is out of expected range: $DR_RESULT \n"
 	fi
     
 fi
