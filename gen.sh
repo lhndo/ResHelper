@@ -41,7 +41,7 @@ name="shaper_calibrate_$1"
 
 if [ "$KLIPPER_VER" = "MAIN" ] || [ "$KLIPPER_VER" = "DK" ]; then
 	if [ "$3" -eq 1 ]; then
-    	echo "Skipping Classic Mode. Rrequired only for DK BE variants.\n"
+    	echo "Skipping Classic Mode. Required only for DK BE variants.\n"
 	fi
     echo "ResHelper: Starting Klipper Graph Generation...\n"
     "${KLIPPER_PATH}/scripts/calibrate_shaper.py" "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png --shapers zv,mzv,ei
