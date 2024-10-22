@@ -212,7 +212,7 @@ else
     echo -e '"sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev"\n'
 fi
 
-## Check Numpy
+## Check Matplotlib
 echo -e "\nChecking Matplotlib module..."
 
 if ${PK_PATH}/python -c 'import matplotlib' 2>/dev/null; then
@@ -225,6 +225,25 @@ else
     echo -e "\nNOTE: If you encouter Matplotlib issues, make sure that you are running a Klipper Python 3.x version"
     echo -e "If the issue is still not resolved, you can also try installing the following modules:"
     echo -e '"sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev"\n'
+fi
+
+
+## Check bc (Basic Calculator) 
+echo -e "\nChecking bc (Basic Calculator) ..."
+
+if command -v "bc" 2>&1 >/dev/null then
+    echo "bc is installed!"
+else
+    echo -e "\nbc (Basic Calculator) is not installed."
+    echo -e "Installing bc...\n"
+    sudo apt-get -y install bc
+    echo -e "\nDone: bc Installed!\n"
+fi
+
+if command -v "bc" 2>&1 >/dev/null
+then
+    echo "<the_command> could not be found"
+
 fi
 
 
