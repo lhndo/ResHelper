@@ -1,14 +1,3 @@
-Install:
-```
-cd ~
-rm -rf ResHelper
-git clone https://github.com/lhndo/ResHelper.git
-cd ResHelper
-git checkout newv2
-./install.sh
-```
-
-# IGNORE BELOW 
 
 
 **Contents:**
@@ -31,8 +20,16 @@ A series of scripts designed to streamline Klipper's resonance testing workflow
 ### What does this do?
 
 * Auto generates the resonance graph, and outputs the graph images into the config folder. These can be viewed directly in Mainsail/Fluid.
+* Supports changing **accel_per_hz** at runtime without configuration changes 
+* Compatible with both Mainline Klipper and Danger Klipper
+* Supports Danger Klipper (BEv2) with classic shaper generation mode *
 * The Damping Ratio is automatically computed and displayed in the console and appended to the graph image filename.  
 * Throughout the process there is no need to connect to the PI by SSH or SFTP.  
+
+<br>
+
+*The inclusion of the smooth shapers in Danger Klipper (BEv2) changed the way the graphs are calculated and scored (rec accel, vibr% and frequency).* 
+*A classic mode resonance testing mode is available for retaining compatibility and comparison with the normal branches*
 
 <br>
 
@@ -46,119 +43,41 @@ A series of scripts designed to streamline Klipper's resonance testing workflow
 cd ~
 git clone https://github.com/lhndo/ResHelper.git
 cd ResHelper
-git checkout accel_per_hz
 ./install.sh
 ```
 
-
 <br>
 
-#### 2. Install Rscript
+*If you used an older version, please remove it first by running `rm -rf ResHelper `*
 
-
-```
-sudo apt install r-base
-sudo Rscript install_rs_lib.R
-```
-
-<br> Note: *If the library install fails, try installing a Fortran compiler: `sudo apt-get install gfortran` then re-run: `sudo Rscript install_rs_lib.R`*   
-
-<br>
-
-#### 3. Install G-Code Shell Command
-_* If you haven't done so previously_
-
-```
-cd ~/klipper/klippy/extras/
-wget https://raw.githubusercontent.com/dw-0/kiauh/master/resources/gcode_shell_command.py
-cd ../..
-echo "klippy/extras/gcode_shell_command.py" >> .git/info/exclude
-git update-index --assume-unchanged klippy/extras/gcode_shell_command.py > /dev/null 2>&1
-systemctl restart klipper
-```
-<br>
-
-Gcode Shell Command info:
-https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md
-
-<br>
-
-#### 4. Patch Klipper (Not required for Danger Klipper)
-
-To be able to choose switch your accel per hz at runtime, you need to apply the patch below.    
-:exclamation: Danger Klipper has the following patch built-in
-
-**Klipper**:
-
-```
-cd ~/klipper/klippy/extras/
-rm ~/klipper/klippy/extras/resonance_tester.py
-wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/resonance_tester.py
-cd ../..
-echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
-git update-index --assume-unchanged klippy/extras/resonance_tester.py > /dev/null 2>&1
-systemctl restart klipper
-```
-
-
-
-<br>
-
-#### 5. Include the configuration file in your printer.cfg
-
-<br>
-
-`[include reshelper.cfg]` <br>
-❗**Note: If your host user name is not "pi", then you have to change the paths in reshelper.cfg**
-
-<br>
-
-#### 6. Restart Klipper
-
-<br><br>
-
-## Switching from a previous branch
-```
-cd ResHelper/
-git checkout accel_per_hz
-./install.sh
-```
-
-Override the old reshelper.cfg when asked during the install process, and edit your user path in reshleper.cfg it it's different than "pi"
-
-<br>
-
-#### Patch Klipper (Not required for Danger Klipper)
-
-To be able to choose switch your accel per hz at runtime, you need to apply the patch below.   
-:exclamation: Danger Klipper has the following patch built-in and does not require installation. 
-
-
-**Klipper**:
-
-```
-cd ~/klipper/klippy/extras/
-rm ~/klipper/klippy/extras/resonance_tester.py
-wget https://raw.githubusercontent.com/lhndo/ResHelper/accel_per_hz/Patch/resonance_tester.py
-cd ../..
-echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
-git update-index --assume-unchanged klippy/extras/resonance_tester.py > /dev/null 2>&1
-systemctl restart klipper
-```
-
-
-
-<br>
-<br>
-<hr>
-<br>
 <br>
 
 # Usage
 
 #### 1. Run the Resonance Test Macros 
-Run **RESONANCE_TEST_X** or **RESONANCE_TEST_Y** macros and wait for the Console output.
-> **RESONANCE_TEST_Y ACCEEL_PER_HZ=90 DR=1**  
+Run the `RESONANCE_TEST_X` or `RESONANCE_TEST_Y` macros
+By clicking on the drop down arrow next to the macro button you can define the following settings:
+
+<br>
+
+<img src="Images/macro.png"/>
+
+<br>
+
+`ACCEL_PER_HZ` - defines the intensity of the testing motion
+*If your graphs measures below a 1e5 scale it is then recommended to increase ACCEL_PER_HZ in steps of +10 until it reaches that value (test between 80 and 190)*
+*You can find more information in the [LH Stinger Tuning Guide](https://github.com/lhndo/LH-Stinger/wiki/Tuning#resonance-testing)*
+
+`MIN_FREQ` - the frequency the resonance test starts at
+
+`MAX_FREQ` - the frequency the resonance test ends
+
+`DAMPING_RATIO` - enables/disables the damping ratio calculation
+
+`CLASSIC` - active only in Danger Klipper BEv2 - enables/disables the "classic mode" resonance test
+
+
+<br>
 
 #### 2. View the graph images directly in the browser by going to MACHINE (Mainsail) and then opening the RES_DATA folder.
 *The files are placed in ~/printer_data/config/RES_DATA/*<br>
@@ -169,6 +88,7 @@ Run **RESONANCE_TEST_X** or **RESONANCE_TEST_Y** macros and wait for the Console
 
 <img src="Images/console.png"/>
 
+<br>
 
 #### 3. Add the resonance test results to your printer.cfg 
 **Example:**
