@@ -46,9 +46,12 @@ cd ResHelper
 ./install.sh
 ```
 
+
 <br>
 
-*If you used an older version, please remove it first by running `rm -rf ResHelper `*
+*If you used an older version, please remove it first by running: **rm -rf ResHelper***
+
+*To update you can run **./install.sh** again and it should autodetect changes*
 
 <br>
 
