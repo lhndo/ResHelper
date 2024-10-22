@@ -231,7 +231,7 @@ fi
 ## Check bc (Basic Calculator) 
 echo -e "\nChecking bc (Basic Calculator) ..."
 
-if command -v "bc" 2>&1 >/dev/null then
+if command -v "bc" 2>&1 >/dev/null; then
     echo "bc is installed!"
 else
     echo -e "\nbc (Basic Calculator) is not installed."
