@@ -240,11 +240,6 @@ else
     echo -e "\nDone: bc Installed!\n"
 fi
 
-if command -v "bc" 2>&1 >/dev/null
-then
-    echo "<the_command> could not be found"
-
-fi
 
 
 #### Patching klipper 
