@@ -6,21 +6,21 @@ verbose: True
 
 [gcode_macro RESONANCE_TEST_X]
 gcode:
-  {% set aphz = params.ACCEL_PER_HZ | default(printer.configfile.settings.resonance_tester.accel_per_hz) | int %}
-  {% set min_hz = params.MIN_FREQ | default(printer.configfile.settings.resonance_tester.min_freq) | int %}
-  {% set max_hz = params.MAX_FREQ | default(printer.configfile.settings.resonance_tester.max_freq) | int %}
-  {% set dr = params.DAMPING_RATIO | default(1) | int %}
-  {% set cls = params.CLASSIC | default(1) | int %}
+  {% set aphz = params.ACCEL_PER_HZ|default(printer.configfile.settings.resonance_tester.accel_per_hz) | int %}
+  {% set min_hz = params.MIN_FREQ|default(printer.configfile.settings.resonance_tester.min_freq) | int %}
+  {% set max_hz = params.MAX_FREQ|default(printer.configfile.settings.resonance_tester.max_freq) | int %}
+  {% set dr = params.DAMPING_RATIO|default(1) | int %}
+  {% set cls = params.CLASSIC|default(1)|int %}
   _RESHELPER AXIS=x ACCEL_PER_HZ={aphz} FREQ_START={min_hz} FREQ_END={max_hz} DR={dr} CLASSIC={cls}
 
 
 [gcode_macro RESONANCE_TEST_Y]
 gcode:
-  {% set aphz = params.ACCEL_PER_HZ | default(printer.configfile.settings.resonance_tester.accel_per_hz) | int %}
-  {% set min_hz = params.MIN_FREQ | default(printer.configfile.settings.resonance_tester.min_freq) | int %}
-  {% set max_hz = params.MAX_FREQ | default(printer.configfile.settings.resonance_tester.max_freq) | int %}
-  {% set dr = params.DAMPING_RATIO | default(1) | int %}
-  {% set cls = params.CLASSIC | default(1) | int %}
+  {% set aphz = params.ACCEL_PER_HZ|default(printer.configfile.settings.resonance_tester.accel_per_hz) | int %}
+  {% set min_hz = params.MIN_FREQ|default(printer.configfile.settings.resonance_tester.min_freq) | int %}
+  {% set max_hz = params.MAX_FREQ|default(printer.configfile.settings.resonance_tester.max_freq) | int %}
+  {% set dr = params.DAMPING_RATIO|default(1) | int %}
+  {% set cls = params.CLASSIC|default(1) | int %}
   _RESHELPER AXIS=y ACCEL_PER_HZ={aphz} FREQ_START={min_hz} FREQ_END={max_hz} DR={dr} CLASSIC={cls}
 
 
