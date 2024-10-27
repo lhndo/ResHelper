@@ -255,8 +255,8 @@ elif [ "$KLIPPER_VER" = "DK_BE" ]; then
     cd $KLIPPER_PATH
     echo "klippy/plugins/shaper_calibrate_classic.py" >> .git/info/exclude
     echo "scripts/calibrate_shaper_classic.py" >> .git/info/exclude
-    git update-index --assume-unchanged klippy/plugins/shaper_calibrate_classic.py > /dev/null 2>&1
-    git update-index --assume-unchanged scripts/calibrate_shaper_classic.py > /dev/null 2>&1
+    git update-index --assume-unchanged klippy/plugins/shaper_calibrate_classic.py > /dev/null 2>&1 || true
+    git update-index --assume-unchanged scripts/calibrate_shaper_classic.py > /dev/null 2>&1 || true
 	echo "Added shaper_calibrate_classic.py to klipper/klippy/plugins/"
 	echo "Added calibrate_shaper_classic.py to klipper/scripts"
 	echo "Patching Done!"
@@ -270,7 +270,7 @@ elif [ "$KLIPPER_VER" = "MAIN" ]; then
 	    cp ./patches/main/resonance_tester.py ${KLIPPER_PATH}/klippy/extras/
 	    cd $KLIPPER_PATH
 	    echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
-	    git update-index --assume-unchanged klippy/extras/resonance_tester.py > /dev/null 2>&1
+	    git update-index --assume-unchanged klippy/extras/resonance_tester.py > /dev/null 2>&1 || true
 
 		if [ -f "${KLIPPER_PATH}/klippy/extras/gcode_shell_command.py" ]; then
 			 echo "GCode Shell Command found. Skipping..."
@@ -280,7 +280,7 @@ elif [ "$KLIPPER_VER" = "MAIN" ]; then
 		  	 wget https://raw.githubusercontent.com/DangerKlippers/danger-klipper/refs/heads/master/klippy/extras/gcode_shell_command.py
 			 cd ${KLIPPER_PATH}
 			 echo "klippy/extras/gcode_shell_command.py" >> .git/info/exclude
-			 git update-index --assume-unchanged klippy/extras/gcode_shell_command.py > /dev/null 2>&1
+			 git update-index --assume-unchanged klippy/extras/gcode_shell_command.py > /dev/null 2>&1 || true
     	fi		
 	    
 	    echo -e "\nKlipper Patching Done!\n"      
