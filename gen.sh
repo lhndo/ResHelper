@@ -51,7 +51,7 @@ elif [ "$KLIPPER_VER" = "DK_BE" ]; then
 	if [ "$3" -eq 0 ]; then
 	    # Use default generation
 	    echo "ResHelper DK BE: Starting Klipper Graph Generation...\n"
-	    "${KLIPPER_PATH}/scripts/calibrate_shaper.py" "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png --shapers zv,mzv,ei
+	    "${KLIPPER_PATH}/scripts/calibrate_shaper.py" "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png
 	elif [ "$3" -eq 1 ]; then
 	    # Classic klipper generation
 	    echo "ResHelper DK BE: Starting Classic Klipper Graph Generation...\n"
