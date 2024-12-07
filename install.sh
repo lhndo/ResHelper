@@ -123,7 +123,7 @@ echo "Klipper Path: ${KLIPPER_PATH}"
 
 if [ -z "$KLIPPER_VER" ]; then
 	if [ -e "${KLIPPER_PATH}/README.md" ]; then
-		if grep -q "Danger Klipper" ${KLIPPER_PATH}/README.md; then
+		if grep -q "kalico" ${KLIPPER_PATH}/README.md; then
 			if [ -f "${KLIPPER_PATH}/klippy/extras/extruder_smoother.py" ]; then
 				KLIPPER_VER="DK_BE"
 			else
