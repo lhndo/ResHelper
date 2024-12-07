@@ -262,15 +262,17 @@ elif [ "$KLIPPER_VER" = "DK_BE" ]; then
 	echo "Patching Done!"
     
 elif [ "$KLIPPER_VER" = "MAIN" ]; then
-		echo -e "Klipper mainline detected. Setting up patch..."
-	    echo -e "Note: For ResHelper to work resonance_tester.py will need to be patched"
-	    echo -e "To restore the previous file run: git restore --source=HEAD -- /klippy/extras/resonance_tester.py" 
+		echo -e "Klipper mainline detected"
+	    echo -e "Note: For ResHelper to work properly Klipper needs to be up to date"
+	    # echo -e "To restore the previous file run: git restore --source=HEAD -- /klippy/extras/resonance_tester.py" 
 
-	    echo -e "\nInstalling resonance_tester accel_per_hz patch...\n" 
-	    cp ./patches/main/resonance_tester.py ${KLIPPER_PATH}/klippy/extras/
+	    # echo -e "\nInstalling resonance_tester accel_per_hz patch...\n" 
+	    # cp ./patches/main/resonance_tester.py ${KLIPPER_PATH}/klippy/extras/
 	    cd $KLIPPER_PATH
-	    echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
-	    git update-index --assume-unchanged klippy/extras/resonance_tester.py > /dev/null 2>&1 || true
+	    # echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
+		echo -e "Restoring resonance_tester.py module"
+	    git update-index --no-assume-unchanged klippy/extras/resonance_tester.py > /dev/null 2>&1 || true
+		git restore --source=HEAD -- /klippy/extras/resonance_tester.py
 
 		if [ -f "${KLIPPER_PATH}/klippy/extras/gcode_shell_command.py" ]; then
 			 echo "GCode Shell Command found. Skipping..."
