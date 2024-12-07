@@ -272,7 +272,7 @@ elif [ "$KLIPPER_VER" = "MAIN" ]; then
 	    # echo "klippy/extras/resonance_tester.py" >> .git/info/exclude
 		echo -e "Restoring resonance_tester.py module"
 	    git update-index --no-assume-unchanged klippy/extras/resonance_tester.py > /dev/null 2>&1 || true
-		git restore --source=HEAD -- /klippy/extras/resonance_tester.py
+		git restore --source=HEAD -- klippy/extras/resonance_tester.py
 
 		if [ -f "${KLIPPER_PATH}/klippy/extras/gcode_shell_command.py" ]; then
 			 echo "GCode Shell Command found. Skipping..."
