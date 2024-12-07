@@ -67,11 +67,21 @@ def process_csv(csv_path):
 
     # Create interpolation function
     def interp_func(x):
+        # If x is outside the range, return the closest boundary value
+        if x <= freq[0]:
+            return psd_xyz[0]
+        if x >= freq[-1]:
+            return psd_xyz[-1]
+        
+        # Find the appropriate interval
         for i in range(len(freq) - 1):
             if freq[i] <= x <= freq[i+1]:
+                # Linear interpolation
                 t = (x - freq[i]) / (freq[i+1] - freq[i])
                 return psd_xyz[i] + t * (psd_xyz[i+1] - psd_xyz[i])
-        return None  # x is out of range
+        
+        # Fallback (should never happen, but added for absolute safety)
+        return psd_xyz[0]
 
     # Function to find roots
     def root_func(x):
