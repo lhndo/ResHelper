@@ -30,6 +30,7 @@ check_path "$I_HOME"
 check_path "$RH_PATH"
 check_path "$CONFIG_PATH"
 check_path "$KLIPPER_PATH"
+check_path "$PK_PATH"
 check_path "$TMP_PATH"
 
 # Define paths
@@ -41,21 +42,21 @@ name="shaper_calibrate_$1"
 
 if [ "$KLIPPER_VER" = "MAIN" ] || [ "$KLIPPER_VER" = "DK" ]; then
 	if [ "$3" -eq 1 ]; then
-    	echo "Skipping Classic Mode. Required only for DK BE variants.\n"
+    	echo "Skipping Classic Mode. Required only for Kalico BE variants.\n"
 	fi
     echo "ResHelper: Starting Klipper Graph Generation...\n"
-    "${KLIPPER_PATH}/scripts/calibrate_shaper.py" "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png --shapers zv,mzv,ei
+    ${PK_PATH}/python ${KLIPPER_PATH}/scripts/calibrate_shaper.py "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png --shapers zv,mzv,ei
 
 elif [ "$KLIPPER_VER" = "DK_BE" ]; then 
 	# Graph generation
 	if [ "$3" -eq 0 ]; then
 	    # Use default generation
-	    echo "ResHelper DK BE: Starting Klipper Graph Generation...\n"
-	    "${KLIPPER_PATH}/scripts/calibrate_shaper.py" "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png
+	    echo "ResHelper Kalico BE: Starting Klipper Graph Generation...\n"
+	    ${PK_PATH}/python ${KLIPPER_PATH}/scripts/calibrate_shaper.py "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png
 	elif [ "$3" -eq 1 ]; then
 	    # Classic klipper generation
-	    echo "ResHelper DK BE: Starting Classic Klipper Graph Generation...\n"
-	    "${KLIPPER_PATH}/scripts/calibrate_shaper_classic.py" "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png --shapers zv,mzv,ei --classic true
+	    echo "ResHelper Kalico BE: Starting Classic Klipper Graph Generation...\n"
+	    ${PK_PATH}/python ${KLIPPER_PATH}/scripts/calibrate_shaper_classic.py "${TMP_PATH}"/resonances_"$1"_*.csv -o "${RES_DATA_PATH}"/shaper_calibrate_"$1".png --shapers zv,mzv,ei --classic true
 	else
 	    # Handle unexpected values of $3
 	    echo "Invalid value for third 'Classic' argument: $3. Expected 0 or 1."
@@ -66,7 +67,6 @@ else
 	echo "ERROR: $KLIPPER_VER - Could not determine Klipper variant. Exiting.."
 	exit 1
 fi
-
 
 # Damping ratio
 if [ "$2" -eq 1 ]; then 
