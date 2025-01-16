@@ -89,6 +89,7 @@ else
 	RH_PATH=""
 	CONFIG_PATH=""
 	KLIPPER_PATH=""
+	PK_PATH=""
 	KLIPPER_VER=""
 	TMP_PATH=""
 fi
@@ -140,6 +141,16 @@ fi
 echo "Klipper Version: ${KLIPPER_VER}"
 
 
+if [ -z "$PK_PATH" ]; then
+	PK_PATH=$(find ${I_HOME} -type d -path '*/klippy-env/bin' | head -n 1); 
+	if [ ! -d "$PK_PATH" ]; then
+		echo "Error: No valid PK_PATH path found."
+		exit 1
+	fi
+fi
+echo "klippy-env Path: ${PK_PATH}"
+
+
 if [ -z "$CONFIG_PATH" ]; then
 	CONFIG_PATH=$(find_shortest_dir "$I_HOME" '*/config/printer.cfg')
 	if [ ! -d "$CONFIG_PATH" ]; then
@@ -148,6 +159,7 @@ if [ -z "$CONFIG_PATH" ]; then
 	fi
 fi
 echo "Klipper Config Path: ${CONFIG_PATH}"
+
 
 if [ -z "$TMP_PATH" ]; then
 	TMP_PATH="/tmp"
@@ -170,6 +182,7 @@ I_HOME="${I_HOME}"
 RH_PATH="${RH_PATH}"
 CONFIG_PATH="${CONFIG_PATH}"
 KLIPPER_PATH="${KLIPPER_PATH}"
+PK_PATH="${PK_PATH}"
 KLIPPER_VER="${KLIPPER_VER}"
 TMP_PATH="${TMP_PATH}"
 EOF
@@ -182,11 +195,7 @@ echo -e "Paths saved!\n"
 ## Check Klipper
 echo -e "Checking Klipper modules..."
 
-PK_PATH=$(find ${I_HOME} -type d -path '*/klippy-env/bin' | head -n 1); 
-if [ ! -d "$PK_PATH" ]; then
-    echo "Error: No valid PK_PATH path found."
-    exit 1
-fi
+
 PK_VERSION=$(${PK_PATH}/python --version 2>&1 | awk '{print $2}')
 if [[ "$PK_VERSION" > "3.0" ]]; then
     echo "Klipper Python version is ${PK_VERSION}"
@@ -228,6 +237,26 @@ else
 fi
 
 
+## Check Libatlas
+echo -e "\nChecking libatlas modules..."
+
+if dpkg-query -W -f='${Status}' libatlas-base-dev 2>/dev/null | grep -q "ok installed"; then
+    echo "Libatlas-base-dev is installed!"
+else
+    echo "Libatlas-base-dev is not installed."
+	sudo apt-get -y install libatlas-base-dev
+	echo -e "\nDone: Libatlas-base-dev Installed!\n"
+fi
+
+if dpkg-query -W -f='${Status}' libopenblas-dev 2>/dev/null | grep -q "ok installed"; then
+    echo "Libopenblas-dev is installed!"
+else
+    echo "Libopenblas-dev is not installed."
+	sudo apt-get -y install libopenblas-dev
+	echo -e "\nDone: Libopenblas-dev  Installed!\n"
+fi
+
+
 ## Check bc (Basic Calculator) 
 echo -e "\nChecking bc (Basic Calculator) ..."
 
@@ -246,9 +275,9 @@ fi
 echo -e "\nDetermining required Klipper patches...\n"
 
 if [ "$KLIPPER_VER" = "DK" ]; then
-    echo "Danger Klipper Master detected. No patches required! Skipping.."
+    echo "Kalico MAIN detected. No patches required! Skipping.."
 elif [ "$KLIPPER_VER" = "DK_BE" ]; then 
-    echo -e "Danger Klipper with Smooth Shapers detected!"
+    echo -e "Kalico with Smooth Shapers detected!"
     echo -e "Preparing classic mode patch.."
 	cp ./patches/dk_be/shaper_calibrate_classic.py ${KLIPPER_PATH}/klippy/plugins/
 	cp ./patches/dk_be/calibrate_shaper_classic.py ${KLIPPER_PATH}/scripts/
@@ -279,7 +308,7 @@ elif [ "$KLIPPER_VER" = "MAIN" ]; then
 		else
 			 echo -e "\nInstalling gcode_shell_command module...\n"
 			 cd ${KLIPPER_PATH}/klippy/extras
-		  	 wget https://raw.githubusercontent.com/DangerKlippers/danger-klipper/refs/heads/master/klippy/extras/gcode_shell_command.py
+		  	 wget https://raw.githubusercontent.com/KalicoCrew/kalico/refs/heads/main/klippy/extras/gcode_shell_command.py
 			 cd ${KLIPPER_PATH}
 			 echo "klippy/extras/gcode_shell_command.py" >> .git/info/exclude
 			 git update-index --assume-unchanged klippy/extras/gcode_shell_command.py > /dev/null 2>&1 || true
@@ -414,7 +443,7 @@ if [ "$MANUAL_INCLUDE" = "true" ] && { [ "$HAS_RH" = "false" ] || [ "$HAS_PG" = 
 	echo -e "[include reshelper.cfg] needs to be added to your printer.cfg!"
 
 	if [ "$KLIPPER_VER" = "DK_BE" ];then 
-		echo -e "For Danger Klipper also add the following:\n"
+		echo -e "For Kalico Klipper also add the following:\n"
 		echo -e "[danger_options]"
 		echo -e "allow_plugin_override: True\n"
 	fi
