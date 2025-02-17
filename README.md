@@ -51,12 +51,17 @@ cd ResHelper
 
 *If you used an older version, please remove it first by running: **rm -rf ResHelper***
 
-*To update you can run **./install.sh** again and it should autodetect changes*
 
 
-(Moonraker Users)
 
-For those utilizing moonraker, the following can be appended to moonraker.conf
+## Update
+
+#### Method A: 
+*Run `./install.sh` again and it will autodetect changes* 
+
+
+#### Method B: 
+For **Moonraker**, the following can be appended to your **moonraker.conf**
 
 ```
 [update_manager ResHelper]
@@ -64,13 +69,9 @@ type: git_repo
 primary_branch: main
 path: ~/ResHelper
 origin: https://github.com/lhndo/ResHelper.git
+is_system_service: False
 install_script: install.sh
 ```
-
-Upon restart of moonraker, you will be prompted that ResHelper doesnt exsist in 
-moonraker.asvc
-From the command line interface append "ResHelper" to the bottom of the list of 
-moonraker's manager services at the */moonraker.asvc as given in the error
 
 <br>
 
