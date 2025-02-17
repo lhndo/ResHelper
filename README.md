@@ -36,7 +36,7 @@ A series of scripts designed to streamline Klipper's resonance testing workflow
 # Installation
 
 
-#### 1. Download and install ResHelper Scripts 
+#### - Download and install ResHelper Scripts 
 
 
 ```
@@ -56,24 +56,11 @@ cd ResHelper
 
 ## Update
 
-#### Method A: 
+
 *Run `./install.sh` again and it will autodetect changes* 
 
 
-#### Method B: 
-For **Moonraker**, the following can be appended to your **moonraker.conf**
 
-```
-[update_manager ResHelper]
-type: git_repo
-primary_branch: main
-path: ~/ResHelper
-origin: https://github.com/lhndo/ResHelper.git
-is_system_service: False
-install_script: install.sh
-```
-
-<br>
 
 # Usage
 
