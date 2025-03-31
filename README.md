@@ -129,7 +129,7 @@ damping_ratio_y: 0.0523
 For support please join us on the [LH Stinger Discord](https://discord.gg/EzssCfnEDS)
 
 <br>
-<a href='https://ko-fi.com/lh_eng' target='_blank'><img height='46' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /> </a>
+<a href='https://ko-fi.com/P5P7PF0ED' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 
 
