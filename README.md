@@ -59,7 +59,9 @@ cd ResHelper
 
 *Run `./install.sh` again and it will autodetect changes* 
 
-
+Notes: 
+* If you switch between Klipper versions (Kalico) please run ./install.sh again to rebuild the paths and modules.
+* If you hard reset your Kalico repo, it's possible that it will wipe out the classic graph generation module. Please run ./install.sh again.
 
 
 # Usage
@@ -90,7 +92,10 @@ By clicking on the drop down arrow next to the macro button you can define the f
 <br>
 
 #### 2. View the graph images directly in the browser by going to MACHINE (Mainsail) and then opening the RES_DATA folder.
-*The files are placed in ~/printer_data/config/RES_DATA/*<br>
+*The files are placed in ~/printer_data/config/RES_DATA/*  
+*If the generation was successful, but your are not seeing any new file, please hit the **Refresh** button in the UI*
+<br>
+
 <img src="Images/config.png"/><br>
 <img src="Images/graph.png" width=50%/>
 <br>
