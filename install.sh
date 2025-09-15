@@ -148,6 +148,7 @@ if [ -z "$PK_PATH" ]; then
 		echo "Error: No valid PK_PATH path found."
 		exit 1
 	fi
+	PK_PATH="$PK_PATH/bin"
 fi
 echo "klippy-env Path: ${PK_PATH}"
 
@@ -158,7 +159,6 @@ if [ -z "$CONFIG_PATH" ]; then
 	    echo "Error: No valid printer_data/config  path found."
 	    exit 1
 	fi
-	PK_PATH="$PK_PATH/bin"
 fi
 echo "Klipper Config Path: ${CONFIG_PATH}"
 
