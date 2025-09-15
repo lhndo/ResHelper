@@ -158,6 +158,7 @@ if [ -z "$CONFIG_PATH" ]; then
 	    echo "Error: No valid printer_data/config  path found."
 	    exit 1
 	fi
+	PK_PATH="$PK_PATH/bin"
 fi
 echo "Klipper Config Path: ${CONFIG_PATH}"
 
