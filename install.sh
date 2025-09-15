@@ -21,9 +21,10 @@ check_path() {
 find_shortest_dir() {
     local search_path="$1"
     local search_key="$2"
+    local search_type="${3:-f}"
     local shortest_dir
 
-    shortest_dir=$(find "$search_path" -type f -path "$search_key" 2>/dev/null | awk '{
+    shortest_dir=$(find "$search_path" -type "$search_type" -path "$search_key" 2>/dev/null | awk '{
         if (length($0) < len || len == 0) {
             len = length($0);
             min = $0; 
@@ -142,7 +143,7 @@ echo "Klipper Version: ${KLIPPER_VER}"
 
 
 if [ -z "$PK_PATH" ]; then
-	PK_PATH=$(find ${I_HOME} -type d -path '*/klippy-env/bin' | head -n 1); 
+	PK_PATH=$(find_shortest_dir "$I_HOME" '*/klippy-env/bin' d); 
 	if [ ! -d "$PK_PATH" ]; then
 		echo "Error: No valid PK_PATH path found."
 		exit 1
