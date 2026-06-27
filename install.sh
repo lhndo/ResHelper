@@ -242,7 +242,10 @@ fi
 ## Check Libatlas
 echo -e "\nChecking libatlas modules..."
 
-if dpkg-query -W -f='${Status}' libatlas-base-dev 2>/dev/null | grep -q "ok installed"; then
+DEBIAN_VERSION=$(grep -oP '(?<=VERSION_CODENAME=).*' /etc/os-release 2>/dev/null || echo "unknown")
+if [ "$DEBIAN_VERSION" = "trixie" ]; then
+    echo "Debian Trixie detected. Skipping libatlas-base-dev (not available). libopenblas-dev will be used instead."
+elif dpkg-query -W -f='${Status}' libatlas-base-dev 2>/dev/null | grep -q "ok installed"; then
     echo "Libatlas-base-dev is installed!"
 else
     echo "Libatlas-base-dev is not installed."
